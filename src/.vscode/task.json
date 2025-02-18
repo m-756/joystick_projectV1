@@ -1,0 +1,60 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Compilar e Executar (Debug)",
+        "type": "shell",
+        "command": "gcc",
+        "args": [
+          "-g", // Ativa a opção de debug
+          "-Wall", // Habilita todos os avisos de compilação
+          "-o", "${workspaceFolder}/bin/programa", // Define o local do executável
+          "${workspaceFolder}/src/*.c", // Compila todos os arquivos .c da pasta src
+          "-lm" // Adiciona a biblioteca matemática (caso precise)
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": ["$gcc"],
+        "detail": "Compilar e preparar o programa para debug"
+      },
+      {
+        "label": "Executar (Debug)",
+        "type": "shell",
+        "command": "${workspaceFolder}/bin/programa", // Localiza o executável para execução
+        "group": "none",
+        "dependsOn": ["Compilar e Executar (Debug)"], // Garante que o programa será compilado antes
+        "detail": "Executar o programa com suporte a debug"
+      },
+      {
+        "label": "Limpar build",
+        "type": "shell",
+        "command": "rm",
+        "args": [
+          "-rf", 
+          "${workspaceFolder}/bin" // Apaga o diretório de binários para forçar uma nova compilação
+        ],
+        "group": "none",
+        "problemMatcher": [],
+        "detail": "Limpar arquivos binários para nova compilação"
+      },
+      {
+        "label": "Compilação Incremental",
+        "type": "shell",
+        "command": "gcc",
+        "args": [
+          "-o", "${workspaceFolder}/bin/programa", // Nome do executável
+          "${workspaceFolder}/src/*.c", // Compila arquivos de código
+          "-lm" // Biblioteca matemática
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": false
+        },
+        "problemMatcher": ["$gcc"],
+        "detail": "Compilação incremental após alterações"
+      }
+    ]
+  }
+  
